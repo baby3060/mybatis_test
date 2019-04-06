@@ -306,7 +306,4 @@ public class UserDaoJdbc implements UserDao {
         return list;
     }
 
-    public List<User> selectCondition(Object ...obj) {
-        throw new UnsupportedOperationException("유효한 호출이 아닙니다.");
-    }
 }

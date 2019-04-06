@@ -12,5 +12,4 @@ public interface UserDao {
     public int countAll();
     public User getUser(String userId);
     public List<User> selectAll();
-    public List<User> selectCondition(Object ...obj);
 }
