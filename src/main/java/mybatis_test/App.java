@@ -3,12 +3,40 @@
  */
 package mybatis_test;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+import dao.*;
 
+import java.io.*;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.*;
+
+// XML 없이 SqlSessionFactory 생성 
+        
+/*
+    DataSource dataSource = 데이터 소스 따로 생성
+    TransactionFactory transactionFactory = new JdbcTransactionFactory();
+    Environment environment = new Environment("development", transactionFactory, dataSource);
+    Configuration configuration = new Configuration(environment);
+    configuration.addMapper(User.class);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+*/
+
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        String resource = "mybatis-config.xml";
+
+        InputStream inputStream = null;
+        
+        try {
+            inputStream = Resources.getResourceAsStream(resource);
+        } catch(IOException e) {
+
+        }
+
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        
+        
+
+
     }
 }

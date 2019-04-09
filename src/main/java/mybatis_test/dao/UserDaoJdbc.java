@@ -1,29 +1,17 @@
 package dao;
 
 import model.User;
+import connection.*;
 
 import java.util.*;
 
 import java.sql.*;
 
+
 public class UserDaoJdbc implements UserDao {
 
-    private Connection getConnection() {
-        Connection connection = null;
-
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "mybatis", "mybatisdb");
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return connection;
-    }
-
     public int insertUser(User user) {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
 
         int result = 0;
@@ -57,7 +45,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     public int updateUser(User user) {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
 
         int result = 0;
@@ -96,7 +84,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     private int deleteUser(String userId) {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
 
         int result = 0;
@@ -128,7 +116,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     public int countUser(String userId) {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -171,7 +159,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     public int countAll() {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -213,7 +201,7 @@ public class UserDaoJdbc implements UserDao {
 
     public User getUser(String userId) {
 
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -260,7 +248,7 @@ public class UserDaoJdbc implements UserDao {
     }
 
     public List<User> selectAll() {
-        Connection conn = getConnection();
+        Connection conn = ConnectionMaker.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<User> list = new ArrayList<User>();
@@ -304,6 +292,35 @@ public class UserDaoJdbc implements UserDao {
         }
         
         return list;
+    }
+
+    public void deleteAll() {
+        Connection conn = ConnectionMaker.getConnection();
+        PreparedStatement pstmt = null;
+
+        String sql = "Delete From TBUSER";
+
+        try {
+
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.executeUpdate();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            
+            if( pstmt != null ) {
+                try { 
+                    pstmt.close();
+                } catch(Exception e){}
+            }
+            if( conn != null ) {
+                try { 
+                    conn.close();
+                } catch(Exception e){}
+            }
+        }
     }
 
 }

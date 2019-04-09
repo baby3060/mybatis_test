@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org..DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>    
+
+    <properties resource="db.properties" />
+
+    <typeAliases>
+        <typeAlias type="model.User" alias="User" />
+    </typeAliases>
+
+    <!-- 환경 : 스프링의 Propile이라고 생각해야 겠다. -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driverName}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.userName}"/>
+                <property name="password" value="${db.userPass}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 매퍼 => 여러개 선택 가능 -->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
