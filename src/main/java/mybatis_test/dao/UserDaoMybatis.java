@@ -47,6 +47,6 @@ public class UserDaoMybatis implements UserDao {
     }
 
     public void deleteAll() {
-        
+        this.sqlSession.delete("mapper.UserMapper.deleteUserAll");
     }
 }

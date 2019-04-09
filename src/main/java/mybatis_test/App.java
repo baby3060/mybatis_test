@@ -30,9 +30,12 @@ public class App {
 
         System.out.println("user Count is " + count);
 
+        if( count > 0 ) {
+            service.deleteAllUser();
+        }
+
         try {
             
-
             service.addUser(new User("1", "1", "1"));
             
             /*
@@ -41,14 +44,6 @@ public class App {
             user = new User("1", "1", "1");
             service.addUser(user);
             */
-
-            service.addUser(new User("2", "2", "2"));
-            service.addUser(new User("3", "3", "3"));
-            service.addUser(new User("4", "4", "4"));
-
-            count = service.countAllUser();
-
-            System.out.println("user Count is " + count);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -76,5 +71,23 @@ public class App {
 
         System.out.println("user Count is " + count);
 
+        User user1 = service.getUser("1");
+
+        System.out.println("Get User(1) : " + user1);        
+
+        user1.setUserName("1(수정)");
+
+        service.updateUser(user1);
+
+        user1 = service.getUser("1");
+
+        System.out.println("Get User(1) : " + user1);        
+
+
+        System.out.println("=================================");
+
+        service.deleteAllUser();
+        
+        service.complexInsertAndUpdate(new User("1", "1", "1"));
     }
 }

@@ -88,7 +88,7 @@ public class UserService {
                 logger.debug(user + " : 수정 완료");
             } else {
                 logger.error("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
-                throw new DuplicatedKeyException("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
+                throw new EmptyKeyException("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
             }
         } 
     }
@@ -110,7 +110,7 @@ public class UserService {
                 logger.debug(user + " : 삭제 완료");
             } else {
                 logger.error("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
-                throw new DuplicatedKeyException("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
+                throw new EmptyKeyException("해당 USER ID(" + user.getUserId() + ")가 등록된 USER가 아닙니다.");
             }
         } 
     }
@@ -150,4 +150,63 @@ public class UserService {
 
         return user;
     }
+
+    public void deleteAllUser() {
+        logger.info("Delete All User Called ");
+
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            userDao.setSqlSession(sqlSession);
+
+            userDao.deleteAll();
+
+            sqlSession.commit();
+
+            int userCount = userDao.countAll();
+
+            if( userCount > 0 ) {
+                throw new RuntimeException("삭제되지 않았습니다.");
+            } 
+        } 
+    }
+
+    public void complexInsertAndUpdate(User user) {
+        logger.info("complexInsertAndUpdate target : " + user);
+
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            userDao.setSqlSession(sqlSession);
+
+            int userCount = userDao.countUser(user.getUserId());
+
+            if(userCount == 0) {
+                int result = userDao.insertUser(user);
+
+                if(result > 0) {
+                    User updateUser = userDao.getUser(user.getUserId());
+
+                    updateUser.setUserId("test");
+                    updateUser.setUserName("수정(이름)");
+
+                    result = userDao.updateUser(updateUser);
+
+                    if( result > 0 ) {
+                        sqlSession.commit();
+                    
+                        logger.debug(user + " : 복합 등록 완료");
+                    } else {
+                        logger.error("해당 USER ID(" + user.getUserId() + ")가 정상 수정되지 않았습니다.");    
+                        sqlSession.rollback();
+                    }
+                    
+                } else {
+                    logger.error("해당 USER ID(" + user.getUserId() + ")가 정상 등록되지 않았습니다.");
+                    sqlSession.rollback();
+                }
+                
+            } else {
+                logger.error("해당 USER ID(" + user.getUserId() + ")가 이미 존재합니다.");
+                throw new DuplicatedKeyException("해당 USER ID(" + user.getUserId() + ")가 이미 존재합니다.");
+            }
+        } 
+    }
+
 }

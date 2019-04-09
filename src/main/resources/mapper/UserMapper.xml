@@ -39,4 +39,8 @@
     <delete id="deleteUser" parameterType="java.lang.String">
         Delete From TBUSER Where user_id = #{userId}
     </delete>
+
+    <delete id="deleteUserAll">
+        Delete From TBUSER
+    </delete>
 </mapper>
