@@ -43,6 +43,21 @@ dependencies {
 
     // Oracle 설정
     compile group: 'com.oracle', name : 'ojdbc7', version : '12.1.0'
+
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    // DataBase Log 대비한 access
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-access
+    compile group: 'ch.qos.logback', name: 'logback-access', version: '1.2.3'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+
+    // Failed to load class "org.slf4j.impl.StaticLoggerBinder" 에러 때문에 추가
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-jdk14
+    compile group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.26'
 }
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'

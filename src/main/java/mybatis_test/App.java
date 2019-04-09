@@ -7,10 +7,8 @@ import dao.*;
 
 import model.*;
 
-import java.io.*;
-
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.*;
+import service.*;
+import service.exception.*;
 
 // XML 없이 SqlSessionFactory 생성 
         
@@ -25,19 +23,22 @@ import org.apache.ibatis.session.*;
 
 public class App {
     public static void main(String[] args) {
-        String resource = "mybatis-config.xml";
+        UserService service = new UserService();
 
-        InputStream inputStream = null;
-        
+        User user = new User("1", "1", "1");
+
         try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch(IOException e) {
-
+            service.addUser(user);
+            
+            user = new User("1", "1", "1");
+            service.addUser(user);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
 
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        
+
         // 트랜잭션 경계(try ~ resource 문 사용)
+        /*
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
             int userCount = sqlSession.selectOne("mapper.UserMapper.countUser", "1");
 
@@ -67,5 +68,6 @@ public class App {
 
             sqlSession.commit();
         }
+        */
     }
 }
