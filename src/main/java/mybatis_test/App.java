@@ -5,6 +5,8 @@ package mybatis_test;
 
 import dao.*;
 
+import model.*;
+
 import java.io.*;
 
 import org.apache.ibatis.io.Resources;
@@ -35,8 +37,35 @@ public class App {
 
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         
-        
+        // 트랜잭션 경계(try ~ resource 문 사용)
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            int userCount = sqlSession.selectOne("mapper.UserMapper.countUser", "1");
 
+            System.out.println("User Count : " + userCount);
 
+            if( userCount == 0 ) {
+                sqlSession.insert("mapper.UserMapper.insertUser", new User("1", "1", "1"));
+            }
+
+            User user = sqlSession.selectOne("mapper.UserMapper.selectUser", "1");
+
+            System.out.println(user);
+
+            user.setUserName("1(수정)");
+
+            sqlSession.update("mapper.UserMapper.updateUser", user);
+            
+            User user2 = sqlSession.selectOne("mapper.UserMapper.selectUser", "1");
+
+            System.out.println(user2);
+            
+            sqlSession.delete("mapper.UserMapper.deleteUser", "1");
+
+            userCount = sqlSession.selectOne("mapper.UserMapper.countUser", "1");
+
+            System.out.println("User Count(Delete After) : " + userCount);
+
+            sqlSession.commit();
+        }
     }
 }
