@@ -22,52 +22,59 @@ import service.exception.*;
 */
 
 public class App {
+    
     public static void main(String[] args) {
         UserService service = new UserService();
 
-        User user = new User("1", "1", "1");
+        int count = service.countAllUser();
+
+        System.out.println("user Count is " + count);
 
         try {
-            service.addUser(user);
             
+
+            service.addUser(new User("1", "1", "1"));
+            
+            /*
+            // Exception 테스트용
+
             user = new User("1", "1", "1");
             service.addUser(user);
+            */
+
+            service.addUser(new User("2", "2", "2"));
+            service.addUser(new User("3", "3", "3"));
+            service.addUser(new User("4", "4", "4"));
+
+            count = service.countAllUser();
+
+            System.out.println("user Count is " + count);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            service.addUser(new User("2", "2", "2"));
         } catch(Exception e) {
             e.printStackTrace();
         }
 
 
-        // 트랜잭션 경계(try ~ resource 문 사용)
-        /*
-        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            int userCount = sqlSession.selectOne("mapper.UserMapper.countUser", "1");
-
-            System.out.println("User Count : " + userCount);
-
-            if( userCount == 0 ) {
-                sqlSession.insert("mapper.UserMapper.insertUser", new User("1", "1", "1"));
-            }
-
-            User user = sqlSession.selectOne("mapper.UserMapper.selectUser", "1");
-
-            System.out.println(user);
-
-            user.setUserName("1(수정)");
-
-            sqlSession.update("mapper.UserMapper.updateUser", user);
-            
-            User user2 = sqlSession.selectOne("mapper.UserMapper.selectUser", "1");
-
-            System.out.println(user2);
-            
-            sqlSession.delete("mapper.UserMapper.deleteUser", "1");
-
-            userCount = sqlSession.selectOne("mapper.UserMapper.countUser", "1");
-
-            System.out.println("User Count(Delete After) : " + userCount);
-
-            sqlSession.commit();
+        try {
+            service.addUser(new User("3", "3", "3"));
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-        */
+
+        try {
+            service.addUser(new User("4", "4", "4"));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        count = service.countAllUser();
+
+        System.out.println("user Count is " + count);
+
     }
 }

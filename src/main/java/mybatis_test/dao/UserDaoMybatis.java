@@ -16,21 +16,16 @@ public class UserDaoMybatis implements UserDao {
         this.sqlSession = sqlSession;
     }
 
-    
     public int insertUser(User user) {
         return this.sqlSession.insert("mapper.UserMapper.insertUser", user);
     }
 
     public int updateUser(User user) {
-        int result = 0;
-
-        return result;
+        return this.sqlSession.update("mapper.UserMapper.updateUser", user);
     }
 
     public int deleteUser(User user) {
-        int result = 0;
-
-        return result;
+        return this.sqlSession.delete("mapper.UserMapper.deleteUser", user.getUserId());
     }
 
     public int countUser(String userId) {
@@ -38,13 +33,11 @@ public class UserDaoMybatis implements UserDao {
     }
 
     public int countAll() {
-        return 0;
+        return this.sqlSession.selectOne("mapper.UserMapper.countAllUser");
     }
 
     public User getUser(String userId) {
-        User user = new User();
-
-        return user;
+        return this.sqlSession.selectOne("mapper.UserMapper.selectUser", userId);
     }
 
     public List<User> selectAll() {
@@ -54,6 +47,6 @@ public class UserDaoMybatis implements UserDao {
     }
 
     public void deleteAll() {
-
+        
     }
 }

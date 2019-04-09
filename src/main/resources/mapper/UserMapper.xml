@@ -21,6 +21,10 @@
         select count(*) from TBUSER Where user_id = #{userId}
     </select>
 
+    <select id="countAllUser" resultType="int">
+        select count(*) from TBUSER
+    </select>
+
     <insert id="insertUser" parameterType="User" flushCache="true">
         Insert Into TBUSER(user_id, user_pass, user_name) Values (#{userId}, #{userPass}, #{userName})
     </insert>
