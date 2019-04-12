@@ -11,3 +11,9 @@
 
 >>> SPOCK where @Unroll 조합 아주 좋다.
 >>>> where 절에서 기대값 넣고, expect 절에서 해당 값을 검사.
+
+### SPOCK
+>>>> given, setup : 해당 테스트 돌리기 전의 사전 작업(@Before). 상대적으로 위쪽에 위치
+>>>> when : 테스트 코드 실행
+>>>> then : 테스트 코드 결과 검증 및 예외 및 조건에 대한 결과 확인(assert 문)
+>>>> expect : 테스트할 코드 실행 후 검증(when + then)
