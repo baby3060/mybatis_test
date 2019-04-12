@@ -26,41 +26,6 @@ import service.exception.*;
 public class App {
     
     public static void main(String[] args) {
-        UserService service = new UserService();
-
-        int count = service.countAllUser();
-
-        System.out.println("user Count is " + count);
-
-        if( count > 0 ) {
-            service.deleteAllUser();
-        }
-
-        List<User> result = service.selectAllUser();
-
-        System.out.println("selectAllUser Result Is " + result);
-
-        count = service.countAllUser();
-
-        System.out.println("user Count is " + count);
-
-        User user1 = service.getUser("1");
-
-        System.out.println("Get User(1) : " + user1);        
-
-        user1.setUserName("1(수정)");
-
-        service.updateUser(user1);
-
-        user1 = service.getUser("1");
-
-        System.out.println("Get User(1) : " + user1);        
-
-
-        System.out.println("=================================");
-
-        service.deleteAllUser();
         
-        service.complexInsertAndUpdate(new User("1", "1", "1"));
     }
 }
