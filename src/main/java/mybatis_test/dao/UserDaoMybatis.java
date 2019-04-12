@@ -41,9 +41,7 @@ public class UserDaoMybatis implements UserDao {
     }
 
     public List<User> selectAll() {
-        List<User> list = new ArrayList<User>();
-
-        return list;
+        return this.sqlSession.selectList("mapper.UserMapper.selectUserAll");
     }
 
     public void deleteAll() {

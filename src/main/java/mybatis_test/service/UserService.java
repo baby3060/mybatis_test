@@ -1,6 +1,7 @@
 package service;
 
 import java.io.*;
+import java.util.List;
 
 import dao.*;
 
@@ -141,7 +142,7 @@ public class UserService {
 
     public User getUser(String userId) {
         User user = new User();
-
+        
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
             userDao.setSqlSession(sqlSession);
 
@@ -167,6 +168,20 @@ public class UserService {
                 throw new RuntimeException("삭제되지 않았습니다.");
             } 
         } 
+    }
+
+    public List<User> selectAllUser() {
+        logger.info("selectAllUser Called ");
+
+        List<User> resultList = null;
+
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            userDao.setSqlSession(sqlSession);
+
+            resultList = userDao.selectAll();
+        } 
+
+        return resultList;
     }
 
     public void complexInsertAndUpdate(User user) {

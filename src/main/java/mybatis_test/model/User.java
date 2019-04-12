@@ -61,7 +61,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Id : (" + this.userId + "), Name : " + this.userName + ", Password : " + this.userPass;
+        return "User { Id : (" + this.userId + "), Name : " + this.userName + ", Password : " + this.userPass + "} ";
     }
 
 }

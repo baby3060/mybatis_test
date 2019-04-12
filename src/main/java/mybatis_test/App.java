@@ -3,6 +3,8 @@
  */
 package mybatis_test;
 
+import java.util.List;
+
 import dao.*;
 
 import model.*;
@@ -66,6 +68,10 @@ public class App {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        List<User> result = service.selectAllUser();
+
+        System.out.println("selectAllUser Result Is " + result);
 
         count = service.countAllUser();
 
