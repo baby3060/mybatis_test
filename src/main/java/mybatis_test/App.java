@@ -36,39 +36,6 @@ public class App {
             service.deleteAllUser();
         }
 
-        try {
-            
-            service.addUser(new User("1", "1", "1"));
-            
-            /*
-            // Exception 테스트용
-
-            user = new User("1", "1", "1");
-            service.addUser(user);
-            */
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            service.addUser(new User("2", "2", "2"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            service.addUser(new User("3", "3", "3"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            service.addUser(new User("4", "4", "4"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
         List<User> result = service.selectAllUser();
 
         System.out.println("selectAllUser Result Is " + result);
