@@ -2,6 +2,7 @@ import spock.lang.Specification
 
 import java.util.List
 import service.*
+import service.exception.*
 import model.User
 import org.junit.experimental.categories.Category
 import spock.lang.Unroll 
@@ -40,5 +41,26 @@ class BatisTest extends Specification {
         1 | "2"
         2 | "3"
         3 | "4"
+    }
+
+    def "User Service의 Update 테스트"() {
+        given:
+            User user1 = userService.getUser("1")
+            user1.setUserName("1(수정)")
+            userService.updateUser(user1)
+
+        when: User updateUser = userService.getUser("1")
+        then : updateUser.getUserName().equals("1(수정)")
+    }
+
+    def "예외 테스트"() {
+        given:
+            User user1 = userService.getUser("1")
+
+        when : userService.complexInsertAndUpdate(user1)
+
+        then:
+        def e = thrown(DuplicatedKeyException.class)
+        e.message.equals("해당 USER ID(1)가 이미 존재합니다.")
     }
 }

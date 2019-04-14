@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="mapper.CommentMapper">
+    <!-- MySql의 autoincrement를 통해서 생성되었을 경우 useGeneratedKeys="true" keyProperty="comment_no" -->
+    <insert id="addComment" parameterType="Comment" >
+        <!-- Oracle의 SEQUENCE의 경우 사용 안 되므로 이렇게 우회 -->
+        <!-- keyProperty에는 Oracle의 필드가 아닌 자바 Mapping 필드  -->
+        <selectKey keyProperty="commentNo" resultType="long" order="AFTER">
+            Select TBCOMMENT_SEQ.CURRVAL FROM DUAL
+        </selectKey>
+
+        Insert Into TBCOMMENT (comment_no, user_id, comment_content, reg_date) Values (TBCOMMENT_SEQ.NEXTVAL, #{userId}, #{commentContent}, SYSDATE)
+    </insert>
+
+    <update id="updateComment" parameterType="Comment">
+        Update TBCOMMENT
+        Set comment_content = #{commentContent}
+        Where comment_no = #{comment_no}
+    </update>
+
+    <select id="countAllComment" resultType="int">
+        Select Count(*) As cnt From TBCOMMENT
+    </select>
+</mapper>

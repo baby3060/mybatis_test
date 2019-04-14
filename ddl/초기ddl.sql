@@ -27,11 +27,9 @@ declare
                     )';
                     execute immediate v_sql;        
                     
-            v_sql := 'ALTER TABLE TBCOMMENT ADD (CONSTRAINT TBCOMMENT_PK PRIMARY KEY (comment_no))';
-                
+            v_sql := 'ALTER TABLE TBCOMMENT ADD (CONSTRAINT TBCOMMENT_PK PRIMARY KEY (comment_no))';    
             execute immediate v_sql;        
             
-
             Select Count(*) into nSeqCount 
             From all_sequences
             Where sequence_owner = 'MYBATIS'
@@ -39,12 +37,16 @@ declare
 
             If nSeqCount > 0 THEN
                 v_sql := 'DROP SEQUENCE TBCOMMENT_SEQ; ';
-
                 execute immediate v_sql;
             End If;
             
+            Select Count(*) into nSeqCount 
+            From all_sequences
+            Where sequence_owner = 'MYBATIS'
+            And   sequence_name = 'TBCOMMENT_SEQ';
+
             If nSeqCount = 0 THEN
-                v_sql:= 'CREATE SEQUENCE TBCOMMENT_SEQ INCREMENT BY 1 START WITH 1 MAXVALUE 99999999 MINVALUE 1 NOCYCLE CACHE 20 ;';
+                v_sql:= 'CREATE SEQUENCE TBCOMMENT_SEQ INCREMENT BY 1 START WITH 1 MAXVALUE 99999999 MINVALUE -99999 NOCYCLE CACHE 20 ;';
 
                 execute immediate v_sql;
             End If;

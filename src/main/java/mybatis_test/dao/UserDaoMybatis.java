@@ -1,11 +1,7 @@
 package dao;
 
 import model.User;
-
 import java.util.*;
-
-import java.io.*;
-
 import org.apache.ibatis.session.SqlSession;
 
 public class UserDaoMybatis implements UserDao {

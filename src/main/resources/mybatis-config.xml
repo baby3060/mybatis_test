@@ -11,6 +11,7 @@
 
     <typeAliases>
         <typeAlias type="model.User" alias="User" />
+        <typeAlias type="model.Comment" alias="Comment" />
     </typeAliases>
 
     <!-- 환경 : 스프링의 Propile이라고 생각해야 겠다. -->
@@ -28,6 +29,7 @@
 
     <!-- 매퍼 => 여러개 선택 가능 -->
     <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml" />
+        <mapper resource="mapper/CommentMapper.xml" />
     </mappers>
 </configuration>

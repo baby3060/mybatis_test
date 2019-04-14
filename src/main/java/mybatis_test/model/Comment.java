@@ -1,12 +1,22 @@
 package model;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Comment {
+    private long commentSeq;
     private long commentNo;
     private String userId;
     private String commentContent;
     private Date regDate;
+
+    public long getCommentSeq() {
+        return commentSeq;
+    }
+
+    public void setCommentSeq(long commentSeq) {
+        this.commentSeq = commentSeq;
+    }
 
     public long getCommentNo() {
         return commentNo;
@@ -53,5 +63,18 @@ public class Comment {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int)this.getCommentNo();
+
+        return result + 17;
+    }
+
+    @Override
+    public String toString() {
+        
+        return "No(" + commentSeq + ") : " + commentNo + ", " + userId + " : " + commentContent;
     }
 }
