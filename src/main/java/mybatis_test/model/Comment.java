@@ -10,6 +10,14 @@ public class Comment {
     private String commentContent;
     private Date regDate;
 
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public User getUser() {
+        return this.user;
+    }
     public long getCommentSeq() {
         return commentSeq;
     }

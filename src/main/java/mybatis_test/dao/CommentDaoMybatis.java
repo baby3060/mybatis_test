@@ -18,31 +18,42 @@ public class CommentDaoMybatis implements CommentDao {
     }
 
     public int updateComment(Comment comment) {
-        return 0;
+        return (int)this.sqlSession.update("mapper.CommentMapper.updateComment", comment);
     }
 
     public int deleteComment(Comment comment) {
-        
-        return 0;
-    }
-
-    public int countComment(long commentNo) {
-        return 0;
+        return (int)this.sqlSession.delete("mapper.CommentMapper.deleteComment", comment);
     }
 
     public int countAll_Comment() {
         return this.sqlSession.selectOne("mapper.CommentMapper.countAllComment");
     }
 
+    public int countComment(String userId) {
+        Map<String, Object> param = new HashMap<String, Object>();
+
+        param.put("userId", userId);
+
+        return this.sqlSession.selectOne("mapper.CommentMapper.countComment", param);
+    }
+
     public Comment getComment(long commentNo) {
-        return null;
+        Map<String, Object> param = new HashMap<String, Object>();
+
+        param.put("commentNo", commentNo);
+
+        return this.sqlSession.selectOne("mapper.CommentMapper.getComment", param);
     }
 
     public List<Comment> selectAll_Comment() {
-        return null;
+        return this.sqlSession.selectList("mapper.CommentMapper.selectCommentAll");
     }
 
     public void deleteAllComment() {
         // Sequence 1로 초기화
+    }
+
+    public List<Comment> selectAllJoin() {
+        return this.sqlSession.selectList("mapper.CommentMapper.joinCommentUser");
     }
 }

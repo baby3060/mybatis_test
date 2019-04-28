@@ -5,6 +5,35 @@
 >
 
 <mapper namespace="mapper.CommentMapper">
+    <resultMap id="simpleMap" type="Comment">
+        <id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+        <result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+        <result column="comment_seq" jdbcType="BIGINT" property="commentSeq" />
+    </resultMap>
+
+    <resultMap id="commentJoinMap" type="Comment">
+        <id column="comment_no" jdbcType="BIGINT" property="commentNo" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+        <result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+        <result column="comment_seq" jdbcType="BIGINT" property="commentSeq" />
+
+        <association property="user" column="user_id" javaType="User">
+            <id property="userId" column="user_id" />
+            <result property="userName" column="user_name" />
+        </association>
+    </resultMap>
+
+    <select id="joinCommentUser" resultMap="commentJoinMap">
+        Select a.comment_no, a.user_id, a.comment_content, a.reg_date
+             , b.user_name
+             , Row_Number() Over(Order By a.comment_no) As comment_seq
+        From TBCOMMENT a
+        Inner Join TBUSER b On (b.user_id = a.user_id)
+    </select>
+
     <!-- MySql의 autoincrement를 통해서 생성되었을 경우 useGeneratedKeys="true" keyProperty="comment_no" -->
     <insert id="addComment" parameterType="Comment" >
         <!-- Oracle의 SEQUENCE의 경우 사용 안 되므로 이렇게 우회 -->
@@ -19,10 +48,34 @@
     <update id="updateComment" parameterType="Comment">
         Update TBCOMMENT
         Set comment_content = #{commentContent}
-        Where comment_no = #{comment_no}
+        Where comment_no = #{commentNo}
     </update>
+
+    <delete id="deleteComment" parameterType="Comment">
+        Delete From TBCOMMENT Where comment_no = #{commentNo}
+    </delete>
 
     <select id="countAllComment" resultType="int">
         Select Count(*) As cnt From TBCOMMENT
     </select>
+
+    <select id="countComment" resultType="int" >
+        Select Count(*) As cnt From TBCOMMENT Where user_id = #{userId}
+    </select>
+
+    <select id="getComment" resultMap="commentJoinMap">
+        Select a.comment_no, a.user_id, a.comment_content, a.reg_date
+             , b.user_name
+             , Row_Number() Over(Order By a.comment_no) As comment_seq
+        From TBCOMMENT a
+        Inner Join TBUSER b On (b.user_id = a.user_id)
+        Where a.comment_no = #{commentNo}
+    </select>
+
+    <select id="selectCommentAll" resultMap="simpleMap">
+        Select comment_no, user_id, comment_content, reg_date
+             , Row_Number() Over(Order By comment_no) As comment_seq
+        From TBCOMMENT
+    </select>
+
 </mapper>

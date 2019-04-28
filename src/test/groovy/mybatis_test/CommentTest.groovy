@@ -24,4 +24,5 @@ class CommentTest extends Specification {
         then : comment.getCommentNo() == count
     }
 
+    
 }
