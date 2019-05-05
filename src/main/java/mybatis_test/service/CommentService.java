@@ -1,7 +1,7 @@
 package service;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 
 import dao.*;
 
@@ -77,6 +77,18 @@ public class CommentService {
         }
 
         return count;
+    }
+
+    public List<Comment> selectJoin() {
+        List<Comment> result = new ArrayList<Comment>();
+
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            commentDao.setSqlSession(sqlSession);
+
+            result = commentDao.selectAllJoin();
+        }
+
+        return result;
     }
 
 }

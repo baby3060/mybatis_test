@@ -83,6 +83,6 @@ public class Comment {
     @Override
     public String toString() {
         
-        return "No(" + commentSeq + ") : " + commentNo + ", " + userId + " : " + commentContent;
+        return "{No(" + commentSeq + ") : " + commentNo + ", " + userId + "( " + user.getUserName() + ") " + " : " + commentContent + "}";
     }
 }

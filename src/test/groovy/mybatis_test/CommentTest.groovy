@@ -11,18 +11,20 @@ import spock.lang.Unroll
 class CommentTest extends Specification {
     def commentService = new CommentService()
 
-    def "순번 반환 테스트 오라클"() {
-        given : 
-            Comment comment = new Comment();
-            comment.setUserId("1");
-            comment.setCommentContent("TEst");
+
+    @Unroll
+    def "Join Test[User Name[#idx] Is User Name Is : #userName]"() {
+        given:
+            List<Comment> listCom = commentService.selectJoin();
+
+        expect : listCom.get(idx).getUser().getUserName().equals(userName);
+
+        where:
+        idx | userName
+        0 | "1(수정)"
+        1 | "1(수정)"
+        2 | "1(수정)"
             
-        when : 
-            int maxSeq = commentService.addComment(comment);
-            int count = commentService.countAllComment()
-        
-        then : comment.getCommentNo() == count
     }
 
-    
 }

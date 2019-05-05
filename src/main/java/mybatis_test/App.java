@@ -3,7 +3,7 @@
  */
 package mybatis_test;
 
-import java.util.List;
+import java.util.*;
 
 import dao.*;
 
@@ -28,12 +28,7 @@ public class App {
     public static void main(String[] args) {
         CommentService commentService = new CommentService();
 
-        Comment comment = new Comment();
-        comment.setUserId("1");
-        comment.setCommentContent("TEst");
-
-        commentService.addComment(comment);
-
-        System.out.println(comment);
+        List<Comment> joinList = commentService.selectJoin();
+        System.out.println(joinList);
     }
 }
