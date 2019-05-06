@@ -60,7 +60,7 @@ public class CommentService {
             
             result = commentDao.insertComment(comment);
             sqlSession.commit();
-                
+            
             logger.debug(result + "번 게시물 : " + comment + " 등록 완료");
         } 
 
@@ -89,6 +89,18 @@ public class CommentService {
         }
 
         return result;
+    }
+
+    public void deleteAll() {
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            commentDao.setSqlSession(sqlSession);
+
+            commentDao.deleteAllComment();
+
+            commentDao.dropSequence();
+
+            commentDao.createSequence();
+        }
     }
 
 }

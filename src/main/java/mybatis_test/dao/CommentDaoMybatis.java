@@ -51,6 +51,15 @@ public class CommentDaoMybatis implements CommentDao {
 
     public void deleteAllComment() {
         // Sequence 1로 초기화
+        this.sqlSession.delete("mapper.CommentMapper.deleteAll");
+    }
+
+    public void dropSequence() {
+        this.sqlSession.update("mapper.CommentMapper.deleteSeq");
+    }
+
+    public void createSequence() {
+        this.sqlSession.update("mapper.CommentMapper.createSeq");
     }
 
     public List<Comment> selectAllJoin() {

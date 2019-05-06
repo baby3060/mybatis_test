@@ -15,6 +15,7 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
+    
     public User getUser() {
         return this.user;
     }
@@ -82,7 +83,12 @@ public class Comment {
 
     @Override
     public String toString() {
+        String userName = "";
+
+        if( user != null ) {
+            userName = user.getUserName();
+        }
         
-        return "{No(" + commentSeq + ") : " + commentNo + ", " + userId + "( " + user.getUserName() + ") " + " : " + commentContent + "}";
+        return "{No(" + commentSeq + ") : " + commentNo + ", " + userId + "( " + userName + ") " + " : " + commentContent + "}";
     }
 }

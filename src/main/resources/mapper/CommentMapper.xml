@@ -78,4 +78,22 @@
         From TBCOMMENT
     </select>
 
+    <delete id="deleteAll">
+        Delete From TBCOMMENT
+    </delete>
+
+    <update id="deleteSeq">
+        DROP SEQUENCE TBCOMMENT_SEQ
+    </update>
+
+    <update id="createSeq">
+        CREATE SEQUENCE TBCOMMENT_SEQ
+        START WITH 1
+        MAXVALUE 99999999
+        MINVALUE 0
+        NOCYCLE
+        CACHE 20
+        NOORDER
+    </update>
+
 </mapper>
