@@ -22,3 +22,7 @@
 >>>> expect : 테스트할 코드 실행 후 검증(when + then)
 
 ### Join 걸어보기
+
+- [X] Mapper 인터페이스 사용해보기
+>>>> @ResultMap의 경우 xml에 resultMap으로 설정되어 있는 id를 가져올 때 사용
+- [ ] Provider 적용해보기
