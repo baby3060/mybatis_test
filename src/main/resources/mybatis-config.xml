@@ -30,9 +30,13 @@
     <!-- 매퍼 => 여러개 선택 가능 -->
     <mappers>
         <!-- xml 사용 -->
+        <!-- 
         <mapper resource="mapper/UserMapper.xml" />
+        -->
         <mapper resource="mapper/CommentMapper.xml" />
+
         <!-- Interface로 사용 -->
         <mapper class="mapper.UserMapperImpl" />
+        <mapper class="mapper.CommentMapperImpl" />
     </mappers>
 </configuration>

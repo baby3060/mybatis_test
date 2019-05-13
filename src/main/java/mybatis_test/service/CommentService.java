@@ -79,6 +79,18 @@ public class CommentService {
         return count;
     }
 
+    public List<Comment> selectAllComment() {
+        List<Comment> result = new ArrayList<Comment>();
+
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            commentDao.setSqlSession(sqlSession);
+
+            result = commentDao.selectAll_Comment();
+        }
+
+        return result;
+    }
+
     public List<Comment> selectJoin() {
         List<Comment> result = new ArrayList<Comment>();
 
