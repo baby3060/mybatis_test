@@ -27,4 +27,3 @@
 >>>> @ResultMap으로 xml에 저장된 resultMap 또는 java의 @Results 중에 해당 아이디로 등록된 내역을 가져올 수 있음.
 >>>> xml의 assocation은 @One과 동일(CommentMapper에서 사용)
 >>>> @SelectKey 애노테이션 사용 시 xml에서의 order(before, after)의 기능을 사용하려면, before 속성을 true 또는 false 값으로 설정
-- [ ] Provider 적용해보기
